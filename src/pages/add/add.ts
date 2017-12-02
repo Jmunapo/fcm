@@ -57,7 +57,7 @@ export class AddPage {
     let addthing = this.navParams.get('addthing')
     if (addthing == 'addSell') { this.addSell = true; }
     if (addthing == 'addExpense') { this.addExpense = true;
-        this.temp_arry = this.json.expense;
+        this.temp_arry = JSON.parse(JSON.stringify(this.json.expense));
     }
     if (addthing == 'addNote') { this.addNote = true; }
     if (this.title == null) { this.title = 'Add Page'; }

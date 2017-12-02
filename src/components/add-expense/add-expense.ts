@@ -1,6 +1,7 @@
 import { Component, Input} from '@angular/core';
 import { DatabaseProvider } from '../../providers/database/database';
 import { UtilsProvider } from '../../providers/utils/utils';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
 
 
 
@@ -11,6 +12,7 @@ import { UtilsProvider } from '../../providers/utils/utils';
 export class AddExpenseComponent {
   @Input('expense') expense;
   expense_object: {} = {};
+  //holding Expensive data in storage
   accounts_arr: Array<any> = [];
 
   acc: boolean = false;
@@ -18,32 +20,31 @@ export class AddExpenseComponent {
   dat: boolean = false;
   cat: boolean = false;
   temp_arry: Array<any> = [];
+  bank_instorage: any;
 
   amount: number = null;
+  id: number = null;
 
   constructor(private database: DatabaseProvider,
-              private utils: UtilsProvider) {
-    console.log('AddExpenseComponent');
+              private utils: UtilsProvider,
+              public navCtrl: NavController) {
   }
-  ionViewWillLoad() {
-    this.database.getData('expenses').then(v=>{
-      if(v){
+
+  ngAfterViewInit(){
+    this.database.getData('expenses').then(v => {
+      if (v) {
         this.temp_arry = v;
       }
-    })
-  }
-  ngAfterViewInit(){
+    });
     this.expense_object = this.expense;
     this.database.getData('banking').then(value => {
       if (value) {
+        this.bank_instorage = value;
         let i = 0;
         value.accounts.forEach(element => {
           this.accounts_arr.push(element.name);
           i++;
         });
-        if (i === value.length) {
-          console.log('Data Loaded');
-        }
       }
     });
   }
@@ -54,10 +55,19 @@ export class AddExpenseComponent {
 
   saveExpense(){
     this.expense.amount = Number(this.amount);
+    this.expense.id = Number(this.temp_arry.length+1)
     let validate = this.validate(this.expense_object);
     if(validate){
-      console.log('Implemantation Started');
-      console.log(this.expense_object);
+      this.temp_arry.push(this.expense_object);
+      console.log(this.temp_arry);
+      this.database.setData('expenses', this.temp_arry).then(v =>{
+        if(v){
+          this.utils.simpleToster('Expense Added', 'top');
+          //Now save to transaction Array And subtract the Amount
+          this.recordTransaction(this.expense_object, this.expense.from_account);
+          this.navCtrl.setRoot('HomePage');
+        }
+      })
     }
   }
 
@@ -67,21 +77,14 @@ export class AddExpenseComponent {
     if (!obj.amount  || obj.amount === ''){ this.amnt = true;
     } else if (obj.amount && obj.amount !== '') { c++; }
 
-
-
     if (!obj.category || obj.category === '') { this.cat = true;
     } else if (obj.category && obj.category !== '') { c++;}
-
-
 
     if (!obj.date || obj.date === '') { this.dat = true;
     } else if (obj.date && obj.date !== '') { obj.date = d.getTime(); c++; }
 
-
     if (!obj.from_account || obj.from_account === '') { this.acc = true; 
     } else if (obj.from_account && obj.from_account !== '') { c++; }
-
-    console.log(c);
     if(c === 4){
       return true
     }
@@ -100,6 +103,14 @@ export class AddExpenseComponent {
     this.amnt = false;
   }
 
-
-
+  recordTransaction(obj: {}, name) {
+    console.log(this.bank_instorage.accounts);
+    let bank = this.bank_instorage.accounts;
+    bank.forEach(element => {
+      if(element.name == name){
+        element.transactions.push(obj);
+        console.log(this.bank_instorage);
+      }
+    });
+  }
 }

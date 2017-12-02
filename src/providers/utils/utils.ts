@@ -61,6 +61,7 @@ export class UtilsProvider {
     confirm.present();
   }
 
+
   transform(value) {
     if (value) {
       const words = value.split(' ');
