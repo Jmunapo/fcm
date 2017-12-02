@@ -1,0 +1,12 @@
+page-dashboard {
+    .chart-wrapper {
+      width: 25%;
+      display: inline-block;
+      margin: 1em 2em;
+    }
+
+    canvas {
+      height: 500px;
+    }
+
+}

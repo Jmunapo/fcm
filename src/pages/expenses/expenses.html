@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Expenses
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page9">
+  <form id="expenses-form6">
+    <ion-searchbar placeholder="Search..." name="expensive" id="expenses-search1"></ion-searchbar>
+  </form>
+  <ion-card id="expenses-card22">
+    <ion-list>
+      <ion-item-sliding>
+        <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item25">
+          <ion-avatar item-left>
+            <img />
+          </ion-avatar>
+          <h2>
+            Business
+          </h2>
+        </ion-item>
+        <ion-item-options side="left">
+          <button ion-button color="positive">
+            add
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+      <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item28">
+        <ion-avatar item-left>
+          <img />
+        </ion-avatar>
+        <h2>
+          Family
+        </h2>
+      </ion-item>
+      <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item29">
+        <ion-avatar item-left>
+          <img />
+        </ion-avatar>
+        <h2>
+          Other
+        </h2>
+      </ion-item>
+      <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">
+        <i class="icon ion-image" style="font-size:64px;color:#888;vertical-align:middle;"></i>
+      </div>
+    </ion-list>
+  </ion-card>
+</ion-content>

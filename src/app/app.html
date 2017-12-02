@@ -1,1 +1,66 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="mainContent">
+  <ion-content class="main-side" >
+    <div class="spacer" style="width:248px;height:13px;"></div>
+    <div class="avatar-container">
+      <div>
+        <a style="display:block;" menuClose="" on-click="goToSettings()">
+          <img src="assets/img/xlv2npleRaKkflAVKdTA_My_Account_3.5_Icon.png" style="width:40%;height:auto;" />
+          <span class="right-head">
+            <p>A. Chadambuka</p>
+            <p>Table: 918</p>
+          </span>
+        </a>
+      </div>
+    </div>
+    <hr />
+
+    <ion-list class="main-menu-list">
+      <ion-item color="none" menuClose="" on-click="goHome()" class="menu-list">
+        <ion-icon name="home" item-left></ion-icon>
+        Home
+        <ion-note item-right></ion-note>
+      </ion-item>
+      <!--ion-item color="none" menuClose="" on-click="goToDashboard()" class="menu-list">
+        <ion-icon name="apps" item-left></ion-icon>
+        Dashboard
+        <ion-note item-right></ion-note>
+      </ion-item-->
+      <ion-item color="none" menuClose="" on-click="goToSales()" class="menu-list">
+        <ion-icon name="stats" item-left></ion-icon>
+        Sales
+        <ion-note item-right></ion-note>
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToStock()" class="menu-list">
+        <ion-icon name="filing" item-left></ion-icon>
+        Inventory
+        <ion-note item-right></ion-note>
+      </ion-item>
+      <ion-item color="none" menuClose="" on-click="goToOrders()" class="menu-list">
+        <ion-icon name="briefcase" item-left></ion-icon>
+        Purchases
+        <ion-note item-right></ion-note>
+      </ion-item>
+      <!--ion-item color="none" menuClose="" on-click="goToInventory()" class="menu-list">
+        <ion-icon name="paper" item-left></ion-icon>
+        Reports
+        <ion-note item-right></ion-note>
+      </ion-item-->
+      <ion-item color="none" menuClose="" on-click="goToBanking()" class="menu-list">
+        <ion-icon name="cash" item-left></ion-icon>
+        Banking
+        <ion-note item-right></ion-note>
+      </ion-item>
+      <ion-item color="assertive" menuClose="" on-click="goToExpenses()" class="menu-list">
+        <ion-icon name="podium" item-left></ion-icon>
+        Expenses
+        <ion-note item-right></ion-note>
+      </ion-item>
+    </ion-list>
+    <button id="menu-button5" ion-button color="positive" full icon-right style="font-weight:300;color:#FFFFFF;text-align:right;border-radius:0px 0px 0px 0px;" menuClose="" on-click="goToSettings()">
+      Logout
+      <ion-icon name="log-out"></ion-icon>
+    </button>
+  </ion-content>
+</ion-menu>
+
+<ion-nav #mainContent [root]="rootPage"></ion-nav>

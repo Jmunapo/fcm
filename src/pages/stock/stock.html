@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Stock
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left icon-only>
+        <ion-icon name="help"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let product of productArray">
+      <ion-item >
+        <h2>{{product.product_name}}</h2>
+        <p>{{product.description}}</p>
+        <ion-note item-start>{{product.quantity}}</ion-note>
+        <ion-note >Expected total sales <strong>${{ tonumber(product.quantity) * tonumber(product.selling_price)}}</strong></ion-note>
+        <ion-badge item-end>${{product.selling_price}} each</ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="mainprimary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button ion-button color="secondary" icon-start>
+          <ion-icon name="trending-up"></ion-icon>
+          Profit
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+<ion-fab right bottom>
+  <button ion-fab color="primary" (click)="addMoreProducts()">
+    <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div padding style="font-size:1.0em">
+      <span style="color: #f53d3d">Stock Total: ${{stock_total}} </span> &nbsp;
+      <span style="color: #32db64">Expected Stock Profit: ${{stock_profit}}</span>
+    </div>
+    
+  </ion-toolbar>
+</ion-footer>

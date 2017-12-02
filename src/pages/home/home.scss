@@ -1,3 +1,68 @@
-page-home {
+page-home { height: 100%;
+  .button-inner {
+    flex-flow: column;
+  }
 
+  .mytitle{
+    text-align:center;
+    color:#ffffff;
+    font-size: 1.4em;
+  }
+  .account {
+    color: hsla(0, 13%, 72%, 0.822);
+    font-size: 1.2em;
+  }
+  .dollar{
+    color: #ffffff;
+    font-size: 1.7em;
+    margin-top: 10px;
+    position: absolute;
+    margin-left: -12px;
+  }
+  .usd{
+    color:hsla(0, 13%, 72%, 0.822);
+    font-size: 2.0em;
+    margin-bottom: 15px;
+    padding-left: 5px;
+    position: absolute;
+    margin-top: 13px;
+  }
+
+  .gotopane:active {
+    background-color: #7c61a7;
+    box-shadow: 0 3px #8e57e6;
+  }
+
+
+  .home-card{
+    height: 50%;
+    background: #403156;
+    font-weight: 300;
+    }
+  .home-card-body{
+    height: 50%;
+    color: #403156
+  }
+  .home-panel{
+        text-align: center;
+    }
+  .panel-title{
+    font-size: 3.0em;
+  }
+
+    .val-div {
+        position: relative;
+        top: 20%;
+        font-size: 3.0em;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+    }
+    .prof {
+         font-size: 1.0em;
+         position: absolute;
+         bottom: 0;
+         width: 100%;
+         color: #fff;
+    }
 }

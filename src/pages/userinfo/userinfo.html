@@ -1,0 +1,56 @@
+<ion-content class="tutorial-page">
+
+  <ion-slides pager>
+    <ion-slide >
+      <img src="assets/img/XAuJ4BnYQUOWyZ60Ivo5_fcm1.png" class="slide-image" />
+      <h2 class="slide-title">Hi, Welcome</h2>
+      <h5>You are few moments away, we need to collect:</h5>
+      <p>&bull; Your Accounts</p>
+      <p>&bull; Your Accounts totals</p>
+      <p>&bull; That's all</p>
+      <button ion-button clear icon-end color="primary" (click)="begin()">
+        Begin
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+
+    <ion-slide>
+      <h2 class="slide-title">Accounts Totals</h2>
+      <ion-list>
+        <ion-item >
+          <ion-icon name="cash" item-start></ion-icon>
+          <ion-label floating>Cash $</ion-label>
+          <ion-input type="number" [(ngModel)]="temp_account[0]"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-icon name="tablet-portrait" item-start></ion-icon>
+          <ion-label floating>EcoCash $</ion-label>
+          <ion-input type="number" [(ngModel)]="temp_account[1]"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-icon name="briefcase" item-start></ion-icon>
+          <ion-label floating>Purchases/Inventory $</ion-label>
+          <ion-input type="number" [(ngModel)]="temp_account[2]"></ion-input>
+        </ion-item>
+        <ion-item >
+          <ion-icon name="archive" item-start></ion-icon>
+          <ion-label floating>Other $</ion-label>
+          <ion-input type="number" [(ngModel)]="temp_account[3]"></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button outline round color="primary" (click)="saveTotals()">
+        Save Totals
+      </button>
+    </ion-slide>
+    <ion-slide>
+      <ion-toolbar>
+      </ion-toolbar>
+      <img src="assets/img/XAuJ4BnYQUOWyZ60Ivo5_fcm1.png" class="slide-image" />
+      <h2 class="slide-title">Ready to manage your cashflow?</h2>
+      <button ion-button large clear icon-end color="primary" (click)="getIn()">
+        GO!
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

@@ -1,0 +1,89 @@
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Currency Converter</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only >
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <ion-grid style="padding: 0;">
+      <ion-row>
+        <ion-col col-5>
+          <ion-select [(ngModel)]="currency" interface="popover" style="max-width: 100%;">
+            <ion-option value="USD">USD</ion-option>
+            <ion-option value="ZAR">RAND</ion-option>
+            <ion-option value="ZMW">KWACHA</ion-option>
+            <ion-option value="BWP">PULA</ion-option>
+            <ion-option value="MZN">METICAL</ion-option>
+            <ion-option value="BTC">BITCOIN</ion-option>
+
+          </ion-select>
+        </ion-col>
+        <ion-col col-4 style="text-align: center;">
+          <ion-input [(ngModel)]="amount" type="number" class="amountClass"></ion-input>
+        </ion-col>
+        <ion-col col-3 style="text-align: center; padding: 0;">
+          <button ion-button icon-only item-end (click)="convert()">
+            <ion-icon name="git-compare"></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+<ion-list>
+  <ion-item (click)="whatIs('USD')">
+    <ion-avatar item-start>
+      <img src="assets/img/USD.png">
+    </ion-avatar>
+    US Dollar
+    <h1 item-end> {{usdollar}}</h1>
+  </ion-item>
+  <ion-item (click)="whatIs('ZAR')" >
+    <ion-avatar item-start>
+      <img src="assets/img/ZAR.png">
+    </ion-avatar>
+    Rand
+    <h1 class="rate" item-end>{{rand}}</h1>
+  </ion-item>
+  <ion-item (click)="whatIs('MZN')" >
+    <ion-avatar item-start>
+      <img src="assets/img/MZN.png">
+    </ion-avatar>
+    Metical
+    <h1 class="rate" item-end> {{metical}}</h1>
+  </ion-item>
+  <ion-item (click)="whatIs('BWP')" >
+    <ion-avatar item-start>
+      <img src="assets/img/BWP.png">
+    </ion-avatar>
+    Pula
+    <h1 class="rate" item-end> {{pula}}</h1>
+  </ion-item>
+  <ion-item (click)="whatIs('ZMW')" >
+    <ion-avatar item-start>
+      <img src="assets/img/ZMW.png">
+    </ion-avatar>
+    Kwacha
+    <h1 class="rate" item-end> {{kwacha}}</h1>
+  </ion-item>
+  <ion-item (click)="whatIs('BTC')" >
+    <ion-avatar item-start>
+      <img src="assets/img/BTC.png">
+    </ion-avatar>
+    Bitcoin
+    <h1 class="rate" item-end> {{bitcoin}}</h1>
+  </ion-item>
+</ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <p style="text-align:center;">Data Date: <span>{{date}}</span></p>
+  </ion-toolbar>
+</ion-footer>

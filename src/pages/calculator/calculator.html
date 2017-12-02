@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Calculator</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content style="height: 100%;">
+  <ion-grid class="display-panel">
+    <ion-row style="height: 100%;">
+      <ion-col col-12>
+        <div class="panel-div">
+          <div class="main-display">
+            <span>{{working}}</span>
+          </div>
+          <div class="temp-display">
+            <span>{{result}}</span>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div style="height: 10%;">
+    <ion-list>
+      <ion-item style="font-size: 1.7em;">
+        <ion-icon name="time" item-start></ion-icon>
+        <span (click)="recallHist(history)" >{{history}}</span>
+        <ion-icon name="arrow-dropdown" (click)="presentModal()" item-end></ion-icon>
+      </ion-item>
+    </ion-list>
+  </div>
+  <ion-grid class="keys-panel">
+    <ion-row class="keys-row">
+      <ion-col col-3 style="background-color: #ee1c1c;"  class="cancel-btn" (click)="calcNum('C')">C</ion-col>
+      <ion-col col-3 class="operator pressed-key">%</ion-col>
+      <ion-col col-3 class="operator">&plusmn;</ion-col>
+      <ion-col col-3 class="operator" (click)="calcNum('/',true)">&#247;</ion-col>
+    </ion-row>
+    <ion-row class="keys-row">
+      <ion-col col-3 class="operand" (click)="calcNum('7')">7</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('8')">8</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('9')">9</ion-col>
+      <ion-col col-3 class="operator" (click)="calcNum('*')">&#215;</ion-col>
+    </ion-row>
+    <ion-row class="keys-row">
+      <ion-col col-3 class="operand" (click)="calcNum('4')">4</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('5')">5</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('6')">6</ion-col>
+      <ion-col col-3 class="operator" (click)="calcNum('-')">-</ion-col>
+    </ion-row>
+    <ion-row class="keys-row">
+      <ion-col col-3 class="operand" (click)="calcNum('1')">1</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('2')">2</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('3')">3</ion-col>
+      <ion-col col-3 class="operator" (click)="calcNum('+')">+</ion-col>
+    </ion-row>
+    <ion-row class="keys-row">
+      <ion-col col-3 class="operand" (click)="extraOpreand('0')">0</ion-col>
+      <ion-col col-3 class="operand" (click)="calcNum('.')">&bull;</ion-col>
+      <ion-col col-3 class="operand" (click)="extraOpreand('C')"><ion-icon name="backspace"></ion-icon></ion-col>
+      <ion-col col-3 style="background-color: #2168ec;" class="cancel-btn" (click)="calcNum('=',false)">=</ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

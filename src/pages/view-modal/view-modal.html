@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar color="{{color}}">
+    <ion-buttons left>
+      <button ion-button icon-only (click)="back()">
+        <ion-icon name="arrow-back" item-right></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only >
+        <ion-icon name="help" item-left></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<ion-card>
+  <ion-card-header>
+    {{customer}}
+  </ion-card-header>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of items">
+      <h1 item-start> {{item.quantity}}</h1>
+      <h2> {{item.item_name}}</h2>
+      <p>Paid: ${{item.received}} ({{method}})</p>
+       <ion-note>{{item.date}}</ion-note>
+    </button>
+  </ion-list>
+</ion-card>
+
+
+</ion-content>

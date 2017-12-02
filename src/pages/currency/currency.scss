@@ -1,0 +1,27 @@
+page-currency {
+    .select-md .select-icon {
+      position: relative;
+      width: 15px;
+      height: 11px;
+    }
+    .amountClass{
+        border-bottom: 2px outset #68508b;
+        border-left: 2px outset #68508b;
+        border-right: 2px outset #68508b;
+    }
+
+    .text-input-md {
+      margin: 8px;
+      font-size: 1.2em;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+    }
+    .item-md ion-avatar img {
+      border-radius: 0;
+    }
+
+
+
+
+}

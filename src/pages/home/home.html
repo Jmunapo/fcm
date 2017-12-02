@@ -1,14 +1,100 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Home
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-left icon-only>
+                <ion-icon name="help"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content id="home" style="height: 100%;">
+    <ion-grid class="home-card">
+        <div style="height: 100%;">
+        <ion-row style="height: 50%;">
+            <ion-col col-12>
+                <div class="mytitle">My Account</div>
+            </ion-col>
+            <ion-col col-12 style="text-align:center;">
+                <div class="account">Total Balance</div>
+                <div style="margin-right: 10%;">
+                <span class="dollar">$</span>
+                <span style="color:aliceblue; font-size: 3.5em;">{{value}}</span>
+                <span class="usd">USD</span>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row style="height: 50%; text-align:center; color:#ffffff;">
+
+            <ion-col col-4>
+                <h5>Sales</h5>
+                <button ion-button outline round icon-end color="light" style="width: 100%;  height:40%">
+                    $ {{sales}}
+                    <ion-icon color="secondary" name='arrow-dropup'></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-4>
+                <h5> Expenses</h5>
+                <button ion-button outline round icon-end color="light" style="width: 100%;  height:40%">
+                    $ {{expenses}}
+                    <ion-icon color="danger" name='arrow-dropdown'></ion-icon>
+                </button>
+            </ion-col>
+            <ion-col col-4>
+                <h5>Profit</h5>
+                <button ion-button outline round icon-end color="light" style="width: 100%; height:40%">
+                    $ {{profit}}
+                    <ion-icon color="secondary" name='arrow-dropup'></ion-icon>
+                </button>
+            </ion-col>
+
+        </ion-row>
+        </div>
+    </ion-grid>
+
+    <ion-grid class="home-card-body">
+        <ion-row style="height: 50%; border-bottom: 1px solid black;">
+            <ion-col col-6 class="gotopane"  on-click="goToAdd('Record Sell', 'secondary','addSell')" style="border-right: 1px solid black;">
+                <div class="home-panel">
+                        <div class="panel-title">
+                        <ion-icon name="basket"></ion-icon>
+                        </div>
+                        <p>Record Sell</p>
+                    </div>
+            </ion-col>
+            <ion-col col-6 class="gotopane" on-click="goToAdd('Record Expense', 'danger', 'addExpense')" >
+                <div class="home-panel" >
+                        <div class="panel-title">
+                            <ion-icon name="trending-down"></ion-icon>
+                        </div>
+                        <p>Record Expense</p>
+                </div>
+
+            </ion-col>
+        </ion-row>
+        <ion-row style="height: 50%;"> 
+            <ion-col col-6 class="gotopane" on-click="goToAdd('Add Notes', 'mainprimary', 'addNote')" style="border-right: 1px solid black;">
+                <div class="home-panel" >
+                        <div class="panel-title">
+                            <ion-icon name="paper"></ion-icon>
+                        </div>
+                        <p>Add Notes</p>
+                </div>
+            </ion-col>
+            <ion-col col-6 class="gotopane" on-click="goToTools()">
+                <div class="home-panel" >
+                        <div class="panel-title">
+                            <ion-icon name="construct"></ion-icon>
+                        </div>
+                        <p>Tools</p>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

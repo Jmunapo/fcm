@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+       Sales
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left icon-only>
+        <ion-icon name="help"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item-sliding *ngFor="let sale of salesInstorage">
+      <ion-item (click)="viewSale(sale.item_array, sale.customer, sale.saleDate, sale.payment_method)">
+        <h2>{{sale.customer}} ({{sale.payment_method}})</h2>
+        <p>{{sale.notes}}</p>
+        <ion-note>{{ dateFormart(sale.saleDate) }}
+          <!--strong>${{ tonumber(sale.quantity) * tonumber(sale.selling_price)}}</strong-->
+        </ion-note>
+        <ion-badge item-end>{{sale.item_array.length}} item(s)</ion-badge>
+      </ion-item>
+      <ion-item-options>
+        <button ion-button color="mainprimary" icon-start>
+          <ion-icon name="create"></ion-icon>
+          Edit
+        </button>
+        <button ion-button color="secondary" icon-start>
+          <ion-icon name="trending-up"></ion-icon>
+          Profit
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="addSell()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <div padding style="font-size:1.0em">
+      <span style="color: #32db64">Total Sales: {{total_sale}} </span> &nbsp;
+      <span style="color: #f53d3d">Total Discounts: {{total_discounts}}</span>
+    </div>
+
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,66 @@
+<ion-header>
+
+  <ion-navbar color="{{color}}">
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="saveData(title)">
+        Save
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+
+</ion-header>
+
+
+<ion-content >
+  <div *ngIf="addSell">
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Customer Name (optional)</ion-label>
+      <ion-input type="text" [(ngModel)]="sale.customer"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Payment Method</ion-label>
+      <ion-note *ngIf="erpayment" color="danger" item-end>
+        <i>error</i>
+      </ion-note>
+      <ion-select [(ngModel)]="sale.payment_method" interface="popover">
+        <ion-option *ngFor="let account of accounts" value="{{account}}">
+          {{account}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+      <ion-item>
+        <ion-label floating>Select Date</ion-label>
+        <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="sale.saleDate"></ion-datetime>
+      </ion-item>
+      <ion-card>
+        <ion-card-content>
+          <ion-item *ngFor="let saleitem of sale.item_array; let i = index"> 
+            <h2>{{saleitem.quantity}} {{saleitem.item_name}}</h2>
+            <p>discount (- ${{saleitem.discount}}) </p>
+            <ion-note item-end>
+              <button ion-button clear color="danger" icon-only (click)="removeItem(i)">
+                  <ion-icon name="remove-circle"></ion-icon>
+                </button>
+            </ion-note>
+          </ion-item>
+        </ion-card-content>
+
+        <ion-item no-lines>
+          <button padding ion-button color="{{color}}" block icon-right style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;"
+            on-click="addItemfunc()">
+            Add Item
+          </button>
+        </ion-item>
+      </ion-card>
+
+      <ion-item>
+        <ion-label floating>Notes</ion-label>
+        <ion-textarea [(ngModel)]="sale.notes"></ion-textarea>
+      </ion-item>
+  </ion-list>
+  </div>
+</ion-content>
