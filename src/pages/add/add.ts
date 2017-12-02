@@ -4,6 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { DatePicker } from '@ionic-native/date-picker';
 import { DatabaseProvider } from '../../providers/database/database';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
 
 @IonicPage()
 @Component({
@@ -37,6 +38,7 @@ export class AddPage {
   addItem: any;
   title: string;
   color: string;
+  temp_arry: {} = {};
 
 
   constructor(public navCtrl: NavController,
@@ -45,7 +47,8 @@ export class AddPage {
               public alertCtrl: AlertController,
               public datePicker: DatePicker,
               public database: DatabaseProvider,
-              public toaster: ToastController) {
+              public toaster: ToastController,
+              private json: JsonObjectsProvider) {
   }
   ionViewWillLoad() {
     //Default parameter elements needed
@@ -53,7 +56,9 @@ export class AddPage {
     this.color = this.navParams.get('color');
     let addthing = this.navParams.get('addthing')
     if (addthing == 'addSell') { this.addSell = true; }
-    if (addthing == 'addExpense') { this.addExpense = true; }
+    if (addthing == 'addExpense') { this.addExpense = true;
+        this.temp_arry = this.json.expense;
+    }
     if (addthing == 'addNote') { this.addNote = true; }
     if (this.title == null) { this.title = 'Add Page'; }
     if (this.color == null) { this.color = 'primary'; }
@@ -67,9 +72,14 @@ export class AddPage {
     });
     this.database.getData('banking').then(value => {
       if(value){
-        this.objectKeys(value).then(val => {
-          this.accounts = val;
+        let i = 0;
+        value.accounts.forEach(element => {
+          this.accounts.push(element.name);
+          i++;
         });
+        if(i === value.length){
+          console.log(this.accounts);
+        }
       }
     });
     this.database.getData('sales').then(value => {

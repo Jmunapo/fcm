@@ -37,7 +37,7 @@ export class SalesPage {
         this.getPrices();
       }else{
         //Show add product Alert
-        this.utils.showConfAret('Welcome', 'Add Products to start', 'Add', 'Not Now', 'Sales');
+        this.utils.showConfAlrt('Welcome', 'Add Products to start', 'Add', 'Not Now', 'Sales');
       }
     });
 

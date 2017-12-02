@@ -63,4 +63,7 @@
       </ion-item>
   </ion-list>
   </div>
+  <div *ngIf="addExpense">
+    <add-expense [expense]="temp_arry" ></add-expense>
+  </div>
 </ion-content>

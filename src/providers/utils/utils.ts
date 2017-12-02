@@ -37,7 +37,7 @@ export class UtilsProvider {
     });
     toast.present();
   }
-  public showConfAret(title, msg, agree, disagree, page){
+  public showConfAlrt(title, msg, agree, disagree, page){
     let confirm = this.alrtCtrl.create({
       title: title,
       message: msg,
@@ -59,5 +59,14 @@ export class UtilsProvider {
       ]
     });
     confirm.present();
+  }
+
+  transform(value) {
+    if (value) {
+      const words = value.split(' ');
+
+      value = words.map((word) => word.substring(0, 1).toUpperCase() + word.substring(1)).join(' ');
+    }
+    return value;
   }
 }

@@ -26,7 +26,7 @@ export class JsonObjectsProvider {
   } = {
       id: 0,
       date: '',
-      amount: 0,
+      amount: null,
       to: '',
       from: ''
   };
@@ -87,9 +87,9 @@ export class JsonObjectsProvider {
         id: 0,
         product_name: '',
         purchase_code: '',
-        buying_price: 0,
-        selling_price: 0,
-        quantity: 0,
+        buying_price: null,
+        selling_price: null,
+        quantity: null,
         description: ''
       }
 
@@ -97,16 +97,16 @@ export class JsonObjectsProvider {
       id: number,
       date: string,
       from_account: string,
-      expense_category: string,
+      category: string,
       description: string,
       amount: number
     } = {
         id: 0,
         date: '',
         from_account: '',
-        expense_category: '',
+        category: '',
         description: '',
-        amount: 0
+        amount: null
       }
   
   product_instance: any;
