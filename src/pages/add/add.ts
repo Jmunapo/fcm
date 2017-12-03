@@ -36,7 +36,7 @@ export class AddPage {
   addProduct: boolean; //'''''''''''''''''''''''''''''''''''''''
   addNote: boolean; // to display add notes in ion-content
   itemfocusVar: boolean; //Hide auto generate note on focus on add sell
-  AddPurchase: boolean; //''''''''''''''''''''''''''''''''''''''''''''
+  addPurchase: boolean; //''''''''''''''''''''''''''''''''''''''''''''
   addItem: any;
   title: string;
   color: string;
@@ -66,8 +66,11 @@ export class AddPage {
       console.log(this.temp_arry);
     }
 
-    this.temp_arry = JSON.parse(JSON.stringify(this.json.purchase));
-    console.log(this.temp_arry);
+    if (addthing == 'addPurchase') {
+      this.addPurchase = true;
+      this.temp_arry = JSON.parse(JSON.stringify(this.json.purchase));
+      console.log(this.temp_arry);
+    }
 
     if (addthing == 'addExpense') { this.addExpense = true;
         this.temp_arry = JSON.parse(JSON.stringify(this.json.expense));

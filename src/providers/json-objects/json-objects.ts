@@ -66,7 +66,7 @@ export class JsonObjectsProvider {
       buying_currency: string;
       base_currency: string;
       confirm_purchase: number,
-      conversion: any
+      rate: number
     } = {
         id: 0,
         date: '',
@@ -76,7 +76,7 @@ export class JsonObjectsProvider {
         buying_currency: '',
         base_currency: 'USD',
         confirm_purchase: 0,
-        conversion: {}
+        rate: 1
     };
 //conversion store cornversion data if base currency is not equal to USB
     public product: {
@@ -117,7 +117,7 @@ export class JsonObjectsProvider {
   }
 
   //Functions
- async setAccounts(name){
+ /*async setAccounts(name){
   await  this.database.getData('banking').then(val =>{
       if(val){
         let checking = this.checkArr(val, name);
@@ -150,45 +150,6 @@ export class JsonObjectsProvider {
     }
     return false;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Objects Functions Clone and Restore to the original, Check if the element exist in and Array[];
 
 //returns true if there is no element
@@ -238,10 +199,10 @@ export class JsonObjectsProvider {
       var copy = {};
       for (var attr in obj) {
         if (obj_name == 'accounts') {
-          if (obj.hasOwnProperty(attr)) copy[attr] = this.accounts_instance[attr];
+          //if (obj.hasOwnProperty(attr)) copy[attr] = this.accounts_instance[attr];
         }
       }
       console.log(copy);
       return copy;
-    }
+    }*/
 }

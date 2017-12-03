@@ -26,4 +26,14 @@ export class PurchasesPage {
     })
   }
 
+
+  addPurchase() {
+    this.utils.showLoader('Wait...')
+    this.navCtrl.push('AddPage', {
+      title: 'Add Purchase',
+      color: 'primary',
+      addthing: 'addPurchase'
+    });
+  }
+
 }

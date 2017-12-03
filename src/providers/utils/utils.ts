@@ -18,6 +18,7 @@ export class UtilsProvider {
       content: content,
       duration: 1000,
       spinner: 'dots',
+      dismissOnPageChange: true
     });
     loader.present();
   }

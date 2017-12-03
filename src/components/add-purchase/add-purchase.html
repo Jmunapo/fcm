@@ -1,35 +1,30 @@
 <div>
   <ion-list>
     <ion-item>
+      <ion-label floating>Purchase From</ion-label>
+      <ion-input type="text" [(ngModel)]="place" (ionFocus)="p()"></ion-input>
+      <ion-icon *ngIf="plc" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+
+    <ion-item>
       <ion-label floating>Date</ion-label>
-      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="purchase.date" (ionChange)='d()'></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2050-10-31" [(ngModel)]="date" (ionChange)='d()'></ion-datetime>
       <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
     </ion-item>
 
     <ion-item>
-      <ion-select placeholder="USD"  [(ngModel)]="purchase.buying_currency" interface="popover" style="max-width: 100%;">
+      <ion-select  [(ngModel)]="buying_currency" interface="popover" style="max-width: 100%;">
         <ion-option selected="true" value="USD">USD</ion-option>
         <ion-option value="ZAR">Rand</ion-option>
         <ion-option value="MZW">Kwacha</ion-option>
         <ion-option value="BWP">Pula</ion-option>
         <ion-option value="MZN">Metical</ion-option>
       </ion-select>
-      <ion-input placeholder="Amount" type="number" [(ngModel)]="purchase.amount_in_base" ></ion-input>
-      <ion-icon *ngIf="cat" name='alert' item-end color="danger"></ion-icon>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Amount</ion-label>
-      <ion-input type="number" [(ngModel)]="amount" on-focus="a()"></ion-input>
+      <ion-input placeholder="Amount" type="number" [(ngModel)]="amount_in_base" (ionFocus)="a()"></ion-input>
       <ion-icon *ngIf="amnt" name='alert' item-end color="danger"></ion-icon>
     </ion-item>
 
-    <ion-item>
-      <ion-label floating>Description</ion-label>
-      <ion-textarea [(ngModel)]="purchase.description"></ion-textarea>
-    </ion-item>
-
-    <button padding ion-button block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;" on-click="saveExpense()">
+    <button padding ion-button block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;" on-click="savePurchase()">
       Save Purchase
     </button>
 

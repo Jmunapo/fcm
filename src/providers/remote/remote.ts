@@ -25,4 +25,12 @@ export class RemoteProvider {
         }
       })
   }
+  public retrieveOne(fromto){
+    let url = 'https://free.currencyconverterapi.com/api/v4/convert?q='
+    return this.http.get(url + fromto)
+      .map(res => res.json())
+      .map(data => {
+        return data.results[fromto];
+      })
+  }
 }
