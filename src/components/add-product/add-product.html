@@ -1,0 +1,51 @@
+<div>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Product Name</ion-label>
+      <ion-input type="text" [(ngModel)]="product_name" (ionFocus)="undo('pname')"></ion-input>
+      <ion-icon *ngIf="pname" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Purchase Code</ion-label>
+      <ion-select [(ngModel)]="purchase_id" interface="popover" (ionChange)='p()'>
+        <ion-option *ngFor="let purchase of purchase_arr;" value="{{purchase.id}}">
+          {{purchase.purchase_code}}
+        </ion-option>
+        <ion-option  value="-1">
+          + Add New Purchase
+        </ion-option>
+      </ion-select>
+      <ion-icon *ngIf="pcode" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Buying Price<span>(each)</span> {{switchCurr(purchase_currency)}}
+      </ion-label>
+      <ion-input type="number" [(ngModel)]="buying_price" (ionFocus)="undo('bprice')"></ion-input>
+      <ion-icon *ngIf="bprice" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Selling Price
+        <span>(each)</span> $</ion-label>
+      <ion-input type="number" [(ngModel)]="selling_price" (ionFocus)="undo('sprice')"></ion-input>
+      <ion-icon *ngIf="sprice" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Quantity</ion-label>
+      <ion-input type="number" [(ngModel)]="quantity" (ionFocus)="undo('quant')"></ion-input>
+      <ion-icon *ngIf="quant" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+  
+    <ion-item>
+      <ion-label floating>Description (optional)</ion-label>
+      <ion-textarea [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+    <button padding ion-button color="primary" block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;"
+      on-click="saveProduct()">
+      Save Product
+    </button>  
+  </ion-list>
+</div>

@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Purchases
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-left icon-only>
+        <ion-icon name="help"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="addPurchase()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

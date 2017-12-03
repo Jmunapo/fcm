@@ -60,21 +60,25 @@ export class JsonObjectsProvider {
     public purchase: {
       id: number,
       date: string,
+      place: string,
       purchase_code: string,
       amount_in_base: number,
-      accounts: Array<string>,
-      currency: string;
+      buying_currency: string;
       base_currency: string;
+      confirm_purchase: number,
+      conversion: any
     } = {
         id: 0,
         date: '',
+        place: '',
         purchase_code: '',
-        amount_in_base: 0,
-        accounts: [],
-        currency: '',
-        base_currency: ''
+        amount_in_base: null,
+        buying_currency: '',
+        base_currency: 'USD',
+        confirm_purchase: 0,
+        conversion: {}
     };
-
+//conversion store cornversion data if base currency is not equal to USB
     public product: {
       id: number,
       product_name: string,
@@ -108,24 +112,8 @@ export class JsonObjectsProvider {
         description: '',
         amount: null
       }
-  
-  product_instance: any;
-  accounts_instance: any;
-  sales_instance: any;
-  expense_instance: any;
-  purchase_instance: any;
-  item_array_instance: any;
-  transactions_instance: any;
 
   constructor(private database: DatabaseProvider) {
-    this.product_instance = this.clone(this.product);
-    this.accounts_instance = this.clone(this.accounts);
-    this.sales_instance =  this.clone(this.sales);
-    this.expense_instance =  this.clone(this.expense);
-    this.purchase_instance = this.clone( this.purchase);
-    this.item_array_instance =  this.clone(this.item_array);
-    this.transactions_instance =  this.clone(this.transactions);
-    console.log('Work Zone');
   }
 
   //Functions
@@ -242,7 +230,6 @@ export class JsonObjectsProvider {
       for (var attr in obj) {
         if (obj.hasOwnProperty(attr)) copy[attr] = obj[attr];
       }
-      console.log(copy);
       return copy;
     }
 //If the object cloned it restore to the default values

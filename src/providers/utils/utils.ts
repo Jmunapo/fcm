@@ -16,7 +16,15 @@ export class UtilsProvider {
   public showLoader(content = 'Please wait...'){
     let loader = this.loadingCtrl.create({
       content: content,
-      duration: 6000
+      duration: 1000,
+      spinner: 'dots',
+    });
+    loader.present();
+  }
+  public showLongLoader(content = 'Please wait...', duration) {
+    let loader = this.loadingCtrl.create({
+      content: content,
+      duration: duration
     });
     loader.present();
   }
@@ -53,13 +61,13 @@ export class UtilsProvider {
           handler: () => {
             this.events.publish(page);
             console.log(page)
-           console.log(agree)
           }
         }
       ]
     });
     confirm.present();
   }
+
 
 
   transform(value) {

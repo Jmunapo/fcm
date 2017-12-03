@@ -11,10 +11,6 @@ import { UtilsProvider } from '../../providers/utils/utils';
 })
 export class UserinfoPage {
   @ViewChild(Slides) slides: Slides;
-  banking: { cash: number, ecocash: number } = {
-    cash: 0,
-    ecocash: 0,
-  };
 
   account: {
     at_date: number,
@@ -23,8 +19,7 @@ export class UserinfoPage {
       at_date: 1512119464780,
       accounts: []
     };
-    
-
+  
   temp_account: Array<any> = [null,null,null,null];
   baseCurrency: string;
   checkLoopNum: number = 0;
@@ -37,6 +32,7 @@ export class UserinfoPage {
   }
 
   ionViewWillLoad() {
+    this.utils.showLoader('Wait...');
     this.slides.lockSwipeToNext(true);
     this.database.getData('banking').then(val => {
       if (val) {
@@ -92,7 +88,7 @@ export class UserinfoPage {
   ionViewDidLoad() {
     this.baseCurrency = 'USD';
   }
-
+  
   begin(){
     this.slides.lockSwipeToNext(false);
     this.slides.slideTo(1, 500);

@@ -33,12 +33,15 @@ export class AddPage {
   accounts: Array<any> = []; //store selected accounts
   addSell: boolean; //to display add sell ion-content
   addExpense: boolean; //to display add expense in ion-content
+  addProduct: boolean; //'''''''''''''''''''''''''''''''''''''''
   addNote: boolean; // to display add notes in ion-content
   itemfocusVar: boolean; //Hide auto generate note on focus on add sell
+  AddPurchase: boolean; //''''''''''''''''''''''''''''''''''''''''''''
   addItem: any;
   title: string;
   color: string;
   temp_arry: {} = {};
+  viewName: string = 'AddProduct';
 
 
   constructor(public navCtrl: NavController,
@@ -56,16 +59,26 @@ export class AddPage {
     this.color = this.navParams.get('color');
     let addthing = this.navParams.get('addthing')
     if (addthing == 'addSell') { this.addSell = true; }
+
+    if (addthing == 'addProduct') {
+      this.addProduct = true;
+      this.temp_arry = JSON.parse(JSON.stringify(this.json.product));
+      console.log(this.temp_arry);
+    }
+
+    this.temp_arry = JSON.parse(JSON.stringify(this.json.purchase));
+    console.log(this.temp_arry);
+
     if (addthing == 'addExpense') { this.addExpense = true;
         this.temp_arry = JSON.parse(JSON.stringify(this.json.expense));
     }
+
     if (addthing == 'addNote') { this.addNote = true; }
     if (this.title == null) { this.title = 'Add Page'; }
     if (this.color == null) { this.color = 'primary'; }
   }
 
   ionViewDidLoad() {
-    //get from storage
     this.database.getData('products').then(value =>{
       console.log(value);
       this.instorage = value;
@@ -149,6 +162,7 @@ export class AddPage {
         this.simpleToster('Select Payment Method and Date');
       }
     }
+    if (title !== 'Record Sell') { this.navCtrl.pop(); }
   }
 
   simpleToster(msg) {

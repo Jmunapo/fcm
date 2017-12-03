@@ -65,7 +65,6 @@ export class AddExpenseComponent {
           this.utils.simpleToster('Expense Added', 'top');
           //Now save to transaction Array And subtract the Amount
           this.recordTransaction(this.expense_object, this.expense.from_account);
-          this.navCtrl.setRoot('HomePage');
         }
       })
     }
@@ -103,13 +102,44 @@ export class AddExpenseComponent {
     this.amnt = false;
   }
 
-  recordTransaction(obj: {}, name) {
+  recordTransaction(obj, name) {
     console.log(this.bank_instorage.accounts);
     let bank = this.bank_instorage.accounts;
     bank.forEach(element => {
       if(element.name == name){
-        element.transactions.push(obj);
-        console.log(this.bank_instorage);
+        console.log(element.total);
+        console.log(obj.amount);
+        if(element.total < obj.amount){
+          console.log('That Can\'t happen');
+          console.log(this.temp_arry);
+          this.temp_arry.pop();
+          console.log(this.temp_arry);
+          this.database.setData('expenses', this.temp_arry).then(v => {
+            if (v) {
+              this.utils.simpleToster('Expense Removed', 'bottom');
+              this.navCtrl.setRoot('HomePage');
+            }
+          })
+        } else if (element.total > obj.amount) {
+          //subtract current Amount
+          element.transactions.push(obj);
+          element.total = element.total - obj.amount;
+          this.database.setData('banking', this.bank_instorage).then(val=>{
+            if(val){
+              this.utils.simpleToster('Expense Added', 'top');
+              console.log(this.bank_instorage);
+              this.navCtrl.setRoot('HomePage');
+            }
+          })
+        }
+      }
+    });
+  }
+
+  deleteElement(Arr: Array<any>, id){
+    Arr.forEach(element => {
+      if(element.id === id){
+        element.slice(1)
       }
     });
   }

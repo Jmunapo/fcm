@@ -5,11 +5,11 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class RemoteProvider {
-  something: any;
+  count: any;
   num: number;
 
   constructor(public http: Http) {
-    this.something = [];
+    this.count = [];
   }
 
   public retrieveCurrency(froto, num) {
@@ -17,24 +17,12 @@ export class RemoteProvider {
     return this.http.get(url+froto)
       .map(res => res.json())
       .map(data => {
-        this.something.push(data.results);
-        if (num == this.something.length){
-          let newSomething =  this.something;
-          this.something = [];
-          return newSomething;
+        this.count.push(data.results);
+        if (num == this.count.length){
+          let result = this.count;
+          this.count = [];
+          return result;
         }
       })
   }
-
-  public authentication(ipaddress, password) {
-    let body = new FormData();
-    body.append('pwd', 'masterpassword');
-    body.append('password', password);
-    let url = 'http://' + ipaddress + '/auth.php';
-    return this.http.post(url, body)
-      .map(result => {
-        return result;
-      });
-  }
-
 }

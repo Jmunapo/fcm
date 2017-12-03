@@ -27,7 +27,7 @@ export class HomePage {
     private events: Events,
     private json: JsonObjectsProvider) {
     this.events.subscribe('Home', () => {
-      this.addProducts();
+      this.addProductsAdd();
     })
   }
 
@@ -55,18 +55,24 @@ export class HomePage {
   }
 
   calcTotal(array){
+    let total = 0;
+    let expenses = 0;
     array.forEach(element => {
-      
+      console.log(element);
+      total = total+element.total;
+      for (let i = 0; i < element.transactions.length; i++){
+        let elem = element.transactions[i];
+        expenses = expenses+elem.amount;
+      }
     });
     console.log(array)
-    let cash = Number(array[0].total);
-    let ecocash = Number(array[0].total);
-    this.value = Number(cash + ecocash);
-    this.expenses = Number((this.value * 0.05).toFixed(1));
-    this.sales = Number((this.value + this.expenses).toFixed(1));
-    this.profit = Number((this.value/3.12).toFixed(1));
+    this.value = total;
+    this.expenses = Number((expenses).toFixed(1));
+    this.sales = Number((0).toFixed(1));
+    this.profit = Number((0).toFixed(1));
   }
   goToAdd(params,col, add) {
+    this.utils.showLoader('Wait...')
     this.navCtrl.push('AddPage', {
       title: params,
       color: col,
@@ -76,6 +82,14 @@ export class HomePage {
 
   goToTools(params){
     this.navCtrl.setRoot('ToolsPage');
+  }
+
+  addProductsAdd() {
+    this.utils.showLoader('Wait...')
+    this.navCtrl.push('AddPage', {
+      title: 'Add Product',
+      addthing: 'AddProduct'
+    });
   }
 
   addProducts() {

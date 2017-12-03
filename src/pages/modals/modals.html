@@ -31,25 +31,7 @@
 </ion-content>
 
 <ion-content *ngIf="title == 'Accounts Totals'">
-  <ion-list>
-    <ion-item *ngIf="c">
-      <ion-icon name="cash" item-start></ion-icon>
-      <ion-label floating>Cash $</ion-label>
-      <ion-input type="number" name="cash" [(ngModel)]="cash" ></ion-input>
-    </ion-item>
-
-    <ion-item *ngIf="e">
-      <ion-icon name="tablet-portrait" item-start></ion-icon>
-      <ion-label floating>EcoCash $</ion-label>
-      <ion-input type="number" name="ecocash" [(ngModel)]="ecocash" ></ion-input>
-    </ion-item>
-    <div style="text-align: center">
-      <button ion-button outline icon-end color="primary" (click)="saveAcc()" style="margin-right:0;">
-        Save
-      </button>
-    </div>
-      
-  </ion-list>
+  <add-accounts></add-accounts>
 </ion-content>
 
 

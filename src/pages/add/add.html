@@ -1,15 +1,12 @@
 <ion-header>
-
   <ion-navbar color="{{color}}">
     <ion-title>{{title}}</ion-title>
     <ion-buttons end>
       <button ion-button icon-only (click)="saveData(title)">
-        Save
+        Cancel
       </button>
     </ion-buttons>
   </ion-navbar>
-
-
 </ion-header>
 
 
@@ -63,7 +60,21 @@
       </ion-item>
   </ion-list>
   </div>
+  <!-- Add expense View -->
   <div *ngIf="addExpense">
     <add-expense [expense]="temp_arry" ></add-expense>
   </div>
+
+  <!--Add Accounts View-->
+
+  <!--Add Product View-->
+<div *ngIf="addProduct">
+  <add-product [product]="temp_arry"></add-product>
+</div>
+
+  <!--Add Product View-->
+  <div *ngIf="!addPurchase">
+    <add-purchase [purchase]="temp_arry"></add-purchase>
+  </div>
+
 </ion-content>

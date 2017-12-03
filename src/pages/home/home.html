@@ -7,8 +7,8 @@
             Home
         </ion-title>
         <ion-buttons end>
-            <button ion-button icon-left icon-only>
-                <ion-icon name="help"></ion-icon>
+            <button ion-button icon-left icon-only (click)="goToAdd('Add Notes', 'mainprimary', 'addNote')">
+                <ion-icon name="paper"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
@@ -53,7 +53,6 @@
                     <ion-icon color="secondary" name='arrow-dropup'></ion-icon>
                 </button>
             </ion-col>
-
         </ion-row>
         </div>
     </ion-grid>
@@ -79,12 +78,12 @@
             </ion-col>
         </ion-row>
         <ion-row style="height: 50%;"> 
-            <ion-col col-6 class="gotopane" on-click="goToAdd('Add Notes', 'mainprimary', 'addNote')" style="border-right: 1px solid black;">
+            <ion-col col-6 class="gotopane" on-click="goToAdd('Add Product', 'primary', 'addProduct')" style="border-right: 1px solid black;">
                 <div class="home-panel" >
                         <div class="panel-title">
-                            <ion-icon name="paper"></ion-icon>
+                            <ion-icon name="briefcase"></ion-icon>
                         </div>
-                        <p>Add Notes</p>
+                        <p>Record Purchase</p>
                 </div>
             </ion-col>
             <ion-col col-6 class="gotopane" on-click="goToTools()">
@@ -96,5 +95,7 @@
                 </div>
             </ion-col>
         </ion-row>
+       
     </ion-grid>
+    
 </ion-content>
