@@ -62,8 +62,9 @@ export class AddProductComponent {
   saveProduct() {
     if (this.validate()){
       let sell = Number(this.selling_price);
-      let buy = this.currencyConverter(Number(this.buying_price));
-      let product_total_pric = buy*Number(this.quantity);
+      let buy = this.currencyConverter(this.buying_price);
+      console.log(buy);
+      let product_total_pric = buy*(Number(this.quantity));
       if(buy < sell){
         if (this.confirmPurchase(product_total_pric)){
           this.saveDataToDatabase();
@@ -97,15 +98,21 @@ export class AddProductComponent {
     }
   }
   p(){
+    console.log(this.purchase_id)
     if (this.purchase_id == '-1'){
-      this.navCtrl.push('AddPage');
+      this.reloadStorage();
+        this.utils.showLoader('Wait...')
+        this.navCtrl.push('AddPage', {
+          title: 'Add Purchase',
+          color: 'primary',
+          addthing: 'addPurchase'
+        });
       return false;
     }
     this.pcode = false;
     let element = this.purchase_arr;
     let id = Number(this.purchase_id);
     for (let i = 0; i < element.length; i++){
-      console.log(element);
       if(element[i].id === id){
         this.purchase_currency = element[i].buying_currency;
         this.purchase_code = element[i].purchase_code;
@@ -139,28 +146,7 @@ export class AddProductComponent {
     });
   }  
 
-  reloadStorage(){
-    this.buying_price = null;
-    this.description = '';
-    this.product_name = '';
-    this.purchase_code = '';
-    this.purchase_id = null;
-    this.purchase_currency = null;
-    this.quantity = null;
-    this.selling_price = null;
-    this.database.getData('purchases').then(v => {
-      if (v) {
-        this.purchase_arr = v;
-        console.log(v)
-      }
-    });
-    this.database.getData('products').then(value => {
-      if (value) {
-        this.products_instorage = value;
-        console.log(value);
-      }
-    });
-  }
+ 
 
   //Checking Numbers
   confirmPurchase(total: number){
@@ -168,60 +154,74 @@ export class AddProductComponent {
     let id = Number(this.purchase_id);
     for (let i = 0; i < element.length; i++) {
       if (element[i].id === id) {
-        let total_capital = this.currencyConverter(element[i].amount_in_base);
+        let _total = this.currencyConverter(element[i].amount_in_base);
         let confirmed = element[i].confirm_purchase;
         let con_total = confirmed+total;
-        let con_diff = total_capital - con_total;
-        if(total > total_capital){
+        let con_diff = _total - con_total;
+        if(total > _total){
           return false;
         }
-        if (con_total > total_capital){
+        if (con_total > _total){
           return false;
         }
         if (con_diff < 0){
           return false;
         }
-        if(total_capital >= total+confirmed){
-          element[i].confirm_purchase = confirmed+total;
+        if(_total >= total+confirmed){
+          element[i].confirm_purchase = this.convertBack(confirmed+total);
           return true;
         }
       }
     }
   }
 
+  convertBack(amount){
+    for (let i = 0; i < this.purchase_arr.length; i++) {
+      if (this.purchase_arr[i].id === Number(this.purchase_id)) {
+        let element = this.purchase_arr[i];
+        let total = Number(amount * element.rate);
+        return total;
+      }
+    }
+  }
   currencyConverter(amount){
     if (this.purchase_currency == 'USD'){
       return amount;
-    }else{
-      //do the conversion to USD
-     this.remote.retrieveCurrency(this.purchase_currency+'_USD', 1).subscribe(val=>{
-        console.log(val);
-      this.extractConversion(val)
-      })
+      }else{
+        for(let i = 0; i < this.purchase_arr.length; i++){
+          if (this.purchase_arr[i].id === Number(this.purchase_id)){
+            let element = this.purchase_arr[i];
+            let total = Number(amount/element.rate);
+            return total;
+          }
+        }
+      }
     }
-  }
 
-  extractConversion(convers: Array<any>) {
-    convers.forEach(element => {
-      this.objectKeys(element).then(val => {
-        let elemArray = element[val[0]];
-        if (elemArray.to == 'ZAR') {return Number((this.amount * elemArray.val).toFixed(5)); }
-        if (elemArray.to == 'USD') {return Number((this.amount * elemArray.val).toFixed(5)); }
-        if (elemArray.to == 'BTC') {return Number((this.amount * elemArray.val).toFixed(5)); }
-        if (elemArray.to == 'ZMW') {return Number((this.amount * elemArray.val).toFixed(5)); }
-        if (elemArray.to == 'BWP') {return Number((this.amount * elemArray.val).toFixed(5)); }
-        if (elemArray.to == 'MZN') {return Number((this.amount * elemArray.val).toFixed(5)); }
-      })
-    });
-  }
-
-  async objectKeys(element) {
-    return Object.keys(element).filter(function (key) {
-      let elem = element[key];
-      return elem;
-    });
-  }
-
+    reloadStorage() {
+      this.buying_price = null;
+      this.description = '';
+      this.product_name = '';
+      this.purchase_code = '';
+      this.purchase_id = null;
+      this.purchase_currency = null;
+      this.quantity = null;
+      this.selling_price = null;
+      this.database.getData('purchases').then(v => {
+        if (v) {
+          this.purchase_arr = v;
+          console.log(v)
+        }
+      });
+      this.database.getData('products').then(value => {
+        if (value) {
+          this.products_instorage = value;
+          console.log(value);
+          console.log(this.purchase_arr);
+        }
+      });
+    }
+  
 
 
 

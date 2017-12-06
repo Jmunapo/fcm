@@ -11,14 +11,7 @@ import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
 })
 export class AccountsPage {
   temp_account: Array<any> = [null, null, null, null];
-  account: {
-    at_date: number,
-    accounts: Array<any>
-  } = {
-      at_date: 1512119464780,
-      accounts: []
-    };
-
+  account: any = {};
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -28,11 +21,7 @@ export class AccountsPage {
   }
 
   ionViewWillLoad() {
-    console.log('ionViewDidLoad AccountsPage');
-  }
-  ionViewWillLeave(){
-    console.log('ionViewWillLeave AccountsPage');
-    this.utils.showLoader('Wait...');
+    this.account = JSON.parse(JSON.stringify(this.json.banking));
   }
 
   saveTotals() {
@@ -43,15 +32,17 @@ export class AccountsPage {
         if (i === 1) { this.prepareAccounts(element, 'ecocash'); }
         if (i === 2) { this.prepareAccounts(element, 'purchase'); }
         if (i === 3) { this.prepareAccounts(element, 'other'); }
+        let p = this.account.accounts.findIndex(i => i.name === "purchase");
+        if (p !== -1) { this.account.accounts[p].transactions = [{ id: 1, amount: Number(this.temp_account[2])}]; }
       }
       i++;
       if (i === 3) {
-        let d = new Date;
+        let d = new Date();
         this.account.at_date = d.getTime();
         if (this.temp_account[0] && this.temp_account[0] !== '' || this.temp_account[2] && this.temp_account[2] !== '') {
           this.database.setData('banking', this.account).then(v => {
             if (v) {
-              this.addPurchase();
+              this.addPurchase(d.getTime());
               let size = this.account.accounts.length;
               let msg = size + ' Account(s) Added';
               this.utils.simpleToster(msg, 'top');
@@ -59,16 +50,14 @@ export class AccountsPage {
             }
           })
         } else {
-          this.utils.simpleAlrt('Enter Cash and/ Purchases');
+          this.utils.simpleAlrt('Enter Cash and Purchases figures');
         }
       }
     });
   }
 
   prepareAccounts(total, name) {
-    let accounts: {
-      name: string, total: number, transactions: Array<any>
-    } = { name: '', total: null, transactions: [] }
+    let accounts = JSON.parse(JSON.stringify(this.json.accounts));
     accounts.name = name;
     accounts.total = Number(total);
     this.account.accounts.push(accounts);
@@ -80,27 +69,37 @@ export class AccountsPage {
     this.navCtrl.setRoot('HomePage');
   }
 
-  addPurchase(){
-    let d = new Date(this.account.at_date);
-    let code = d.toDateString().replace(/ /g, "-").toUpperCase();
+  addPurchase(date){
     let purchase_amount = Number(this.temp_account[2]);
-    let instance: Array<any> = [];
-    let purchase = JSON.parse(JSON.stringify(this.json.purchase));
-
     if(purchase_amount !== 0){
+      let d = new Date(this.account.at_date);
+      let code = d.toDateString().replace(/ /g, "-").toUpperCase();
+      let purchase_instance: Array<any> = [];
+      let transactions_instance: Array<any> = [];
+      let purchase = JSON.parse(JSON.stringify(this.json.purchase));
+      let transactions = JSON.parse(JSON.stringify(this.json.transactions));
+      
       purchase.amount_in_base = purchase_amount;
       purchase.base_currency = 'USD';
       purchase.buying_currency = 'USD';
-      purchase.purchase_code = 'CAPITAL-' + code;
+      purchase.purchase_code = 'CAP-' + code;
       purchase.id = 1;
       purchase.date = this.account.at_date;
-      instance.push(purchase);
-      this.database.setData('purchases', instance).then(v=>{
-        if(v){
-          console.log(instance);
-          console.log('Capital Purchase Added');
-        }
-      })
+      purchase.place = 'Shop';
+      purchase_instance.push(purchase);
+      //Populating Transaction object
+      transactions.id = 1;
+      transactions.date = date;
+      transactions.to = 'purchases'
+      transactions.amount = purchase_amount;
+      transactions_instance.push(transactions);
+
+      this.database.setData('purchases', purchase_instance);
+      this.database.setData('transactions', transactions_instance);
+      console.log('Databases Set, Purchases and Transactions');
+      console.log(purchase_instance);
+      console.log(transactions_instance);
+      return true;
     }
 
   }

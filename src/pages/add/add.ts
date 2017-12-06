@@ -83,7 +83,6 @@ export class AddPage {
 
   ionViewDidLoad() {
     this.database.getData('products').then(value =>{
-      console.log(value);
       this.instorage = value;
     });
     this.database.getData('banking').then(value => {

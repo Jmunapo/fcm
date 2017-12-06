@@ -15,9 +15,9 @@ import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
 export class HomePage {
 
   accounts: Array<any>;
-  sales: number;
-  profit: number;
-  expenses: number;
+  sales: number = 0;
+  profit: number = 0;
+  expenses: number = 0;
   value: number;
   constructor(public navCtrl: NavController, 
     public navParams: NavParams, 
@@ -38,7 +38,7 @@ export class HomePage {
         this.calcTotal(this.accounts);
         console.log(val);
       }else {
-       this.navCtrl.setRoot('UserinfoPage');
+        this.navCtrl.setRoot('AccountsPage');
       }
     });
   }
@@ -55,21 +55,18 @@ export class HomePage {
   }
 
   calcTotal(array){
+    console.log(array);
     let total = 0;
-    let expenses = 0;
+    let c = 0;
     array.forEach(element => {
       console.log(element);
       total = total+element.total;
-      for (let i = 0; i < element.transactions.length; i++){
-        let elem = element.transactions[i];
-        expenses = expenses+elem.amount;
-      }
+      c++;
     });
     console.log(array)
-    this.value = total;
-    this.expenses = Number((expenses).toFixed(1));
-    this.sales = Number((0).toFixed(1));
-    this.profit = Number((0).toFixed(1));
+    if(c === array.length){
+      this.value = total;
+    }
   }
   goToAdd(params,col, add) {
     this.utils.showLoader('Wait...')

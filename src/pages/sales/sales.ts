@@ -22,11 +22,7 @@ export class SalesPage {
               public database: DatabaseProvider,
               public modal: ModalController,
               public navParams: NavParams,
-              private utils: UtilsProvider,
-              private events: Events) {
-    events.subscribe('Sales', () => {
-      this.addSell();
-    })
+              private utils: UtilsProvider) {
   }
   ionViewWillLoad() {
     //get from storage

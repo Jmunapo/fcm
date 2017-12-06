@@ -62,8 +62,6 @@ export class AddExpenseComponent {
       console.log(this.temp_arry);
       this.database.setData('expenses', this.temp_arry).then(v =>{
         if(v){
-          this.utils.simpleToster('Expense Added', 'top');
-          //Now save to transaction Array And subtract the Amount
           this.recordTransaction(this.expense_object, this.expense.from_account);
         }
       })
@@ -116,11 +114,10 @@ export class AddExpenseComponent {
           console.log(this.temp_arry);
           this.database.setData('expenses', this.temp_arry).then(v => {
             if (v) {
-              this.utils.simpleToster('Expense Removed', 'bottom');
-              this.navCtrl.setRoot('HomePage');
+              this.utils.simpleToster('Overdraft', 'top');
             }
           })
-        } else if (element.total > obj.amount) {
+        } else if (element.total >= obj.amount) {
           //subtract current Amount
           element.transactions.push(obj);
           element.total = element.total - obj.amount;

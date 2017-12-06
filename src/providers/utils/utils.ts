@@ -2,15 +2,13 @@ import { Injectable } from '@angular/core';
 import { LoadingController  } from 'ionic-angular';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-import { Events } from 'ionic-angular';
 
 @Injectable()
 export class UtilsProvider {
   constructor(
     private loadingCtrl: LoadingController,
     private alrtCtrl: AlertController,
-    private toaster: ToastController,
-    private events: Events
+    private toaster: ToastController
   ) {}
 
   public showLoader(content = 'Please wait...'){
@@ -60,8 +58,7 @@ export class UtilsProvider {
         {
           text: agree,
           handler: () => {
-            this.events.publish(page);
-            console.log(page)
+            console.log(agree)
           }
         }
       ]
