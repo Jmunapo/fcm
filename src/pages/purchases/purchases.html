@@ -16,6 +16,33 @@
 
 
 <ion-content padding>
+  <ion-card *ngFor="let p of purchases_instorage">
+    <ion-card-header>
+       {{p.place}}
+    </ion-card-header>
+    <ion-item >
+      <h2>${{p.amount_in_base}}</h2>
+      <p>{{p.date | date}}</p>
+      <ion-note>Purchase Code: {{p.purchase_code}}</ion-note>
+    </ion-item>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button color="secondary" clear small icon-start>
+          <ion-icon name='md-create'></ion-icon>
+          Edit
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <ion-badge color="secondary" *ngIf="p.confirm_purchase === p.amount_in_base">Confirmed</ion-badge>
+          <button ion-button color="danger" clear small icon-start *ngIf="p.confirm_purchase !== p.amount_in_base" >
+          -{{(p.amount_in_base-p.confirm_purchase).toFixed(2)}}
+          <ion-icon name='alert'></ion-icon>
+        </button>
+      </ion-col>
+    </ion-row>
+  
+  </ion-card>
+
   <ion-fab right bottom>
     <button ion-fab color="primary" (click)="addPurchase()">
       <ion-icon name="add"></ion-icon>

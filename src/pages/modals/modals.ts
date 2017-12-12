@@ -176,7 +176,7 @@ validateAndStore(){
       let newObj = [element, val]
       newData.push(newObj);
     });
-    return newData.reverse();;
+    return newData.reverse();
   }
 
 }

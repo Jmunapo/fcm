@@ -97,8 +97,6 @@ export class AccountsPage {
       this.database.setData('purchases', purchase_instance);
       this.database.setData('transactions', transactions_instance);
       console.log('Databases Set, Purchases and Transactions');
-      console.log(purchase_instance);
-      console.log(transactions_instance);
       return true;
     }
 

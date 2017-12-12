@@ -1,53 +1,43 @@
-<!-- Generated template for the AddExpenseComponent component -->
 <div>
   <ion-list>
     <ion-item>
       <ion-label floating>Date</ion-label>
-      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" [(ngModel)]="expense_object.date" (ionChange)='d()'></ion-datetime>
+      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2050-10-31" [(ngModel)]="date" (ionChange)="remove_err('dat')"></ion-datetime>
       <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
     </ion-item>
-  
+
     <ion-item>
-      <ion-label floating>Spent on</ion-label>
-      <ion-select [(ngModel)]="expense_object.category" interface="popover" style="max-width: 100%;" (ionChange)='s()'>
-        <ion-option value="advertising">Advertising and Marketing</ion-option>
-        <ion-option value="bad debt">Bad Debt</ion-option>
-        <ion-option value="family expenses">Family Expenses</ion-option>
-        <ion-option value="meals and entertainment">Meals and Entertainment</ion-option>
-        <ion-option value="other">Other</ion-option>
-        <ion-option value="rent">Rent</ion-option>
-        <ion-option value="repairs and maintanance">Repairs and Maintanance</ion-option>
-        <ion-option value="tax">Tax Payable</ion-option>
-        <ion-option value="telephone expenses">Telephon Expenses</ion-option>
-        <ion-option value="travel expense">Travel Expense</ion-option>
+      <ion-label floating>Spent On</ion-label>
+      <ion-select [(ngModel)]="spent_on" interface="popover" style="max-width: 100%;">
+        <ion-option  *ngFor="let c of expense_category; let i = index">{{c}}</ion-option>
       </ion-select>
-      <ion-icon *ngIf="cat" name='alert' item-end color="danger"></ion-icon>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Paid Through</ion-label>
-      <ion-select [(ngModel)]="expense_object.from_account" (ionChange)='p()' interface="popover">
-        <ion-option *ngFor="let account of accounts_arr;" value="{{account}}">
-          {{transform(account)}}
-        </ion-option>
-      </ion-select>
-      <ion-icon *ngIf="acc" name='alert' item-end color="danger"></ion-icon>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Amount</ion-label>
-      <ion-input type="number" [(ngModel)]="amount" on-focus="a()"></ion-input>
-      <ion-icon *ngIf="amnt" name='alert' item-end color="danger"></ion-icon>
-    </ion-item>
-  
-    <ion-item>
-      <ion-label floating>Description</ion-label>
-      <ion-textarea [(ngModel)]="expense_object.description"></ion-textarea>
     </ion-item>
 
-    <button padding ion-button color="danger" block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;"
-      on-click="saveExpense()">
+    
+
+    <ion-item-divider color="light">Credit From</ion-item-divider>
+    <ion-item *ngFor="let o of dom_accounts_array; let i = index">
+      <ion-label>{{o.name}}</ion-label>
+      <ion-note item-end>Bal: ${{o.total}}</ion-note>
+      <ion-checkbox [(ngModel)]="dom_accounts_index[i]" (ionChange)="credited_account(i,o.name)"></ion-checkbox>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-input placeholder="Amount" type="number" [(ngModel)]="amount" disabled="true"></ion-input>
+      <ion-icon *ngIf="amnt" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+
+
+    <ion-item>
+      <ion-label floating>Description (optional)</ion-label>
+      <ion-textarea [(ngModel)]="description"></ion-textarea>
+    </ion-item>
+
+
+    <button color="danger" padding ion-button block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;" on-click="save_expense()">
       Save Expense
     </button>
-  
+
   </ion-list>
 </div>

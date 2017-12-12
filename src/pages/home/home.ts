@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
 import { UtilsProvider } from '../../providers/utils/utils';
-import { Events } from 'ionic-angular/util/events';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
 
@@ -15,6 +14,7 @@ import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
 export class HomePage {
 
   accounts: Array<any>;
+  expense_instorage: Array<any>;
   sales: number = 0;
   profit: number = 0;
   expenses: number = 0;
@@ -24,11 +24,8 @@ export class HomePage {
     private database: DatabaseProvider,
     private utils: UtilsProvider,
     private modal: ModalController,
-    private events: Events,
     private json: JsonObjectsProvider) {
-    this.events.subscribe('Home', () => {
-      this.addProductsAdd();
-    })
+
   }
 
   ionViewWillLoad() {
@@ -36,9 +33,16 @@ export class HomePage {
       if(val){
         this.accounts = val.accounts;
         this.calcTotal(this.accounts);
-        console.log(val);
       }else {
         this.navCtrl.setRoot('AccountsPage');
+      }
+    });
+
+    this.database.getData('expenses').then(v => {
+      if (v) {
+        this.expense_instorage = v;
+        this.calculate_expens(v);
+
       }
     });
   }
@@ -54,16 +58,25 @@ export class HomePage {
     });
   }
 
+  calculate_expens(v){
+    let e = 0;
+    let c = v.length;
+    for(let i = 0; i<v.length; i++){
+      let element = v[i];
+      e = e + element.amount
+      if(i+1 === c){
+        this.expenses = e;
+      }
+    }
+  }
+
   calcTotal(array){
-    console.log(array);
     let total = 0;
     let c = 0;
     array.forEach(element => {
-      console.log(element);
       total = total+element.total;
       c++;
     });
-    console.log(array)
     if(c === array.length){
       this.value = total;
     }

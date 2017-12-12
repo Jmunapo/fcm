@@ -83,11 +83,11 @@ export class JsonObjectsProvider {
     
     public product: {
       id: number,
+      quantity: number,
       product_name: string,
       purchase_code: string,
       buying_price: number,
       selling_price: number,
-      quantity: number,
       description: string
     } = {
         id: 0,
@@ -102,18 +102,31 @@ export class JsonObjectsProvider {
     public expense: {
       id: number,
       date: string,
-      from_account: string,
-      category: string,
+      amount: number,
+      spent_on: string,
       description: string,
-      amount: number
+      transaction_id: number,
     } = {
         id: 0,
         date: '',
-        from_account: '',
-        category: '',
+        amount: null,
+        spent_on: '',
         description: '',
-        amount: null
+        transaction_id: null
       }
+
+      public expense_category: Array<string> = [
+      'Meals and Entertainment',
+      'Advertising and Marketing',
+      'Bad Debt',
+      'Family Expenses',
+      'Other',
+      'Rent',
+      'Repairs and Maintanance',
+      'Tax Payable',
+      'Telephon Expenses',
+      'Travel Expense',
+      ]
 
   constructor() {
   }

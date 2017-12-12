@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
 import { UtilsProvider } from '../../providers/utils/utils';
+import { DatePipe } from '@angular/common/src/pipes/date_pipe';
 
 
 @IonicPage()
@@ -19,9 +20,10 @@ export class PurchasesPage {
               private utils: UtilsProvider) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillLoad() {
     console.log('ionViewDidLoad PurchasesPage');
     this.database.getData('purchases').then(val=>{
+      this.purchases_instorage = val.reverse();
       console.log(val);
     })
   }
