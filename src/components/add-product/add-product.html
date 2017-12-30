@@ -8,7 +8,7 @@
   
     <ion-item>
       <ion-label floating>Purchase Code</ion-label>
-      <ion-select [(ngModel)]="purchase_id" interface="popover" (ionChange)='p()'>
+      <ion-select [(ngModel)]="purchase_id" interface="popover" (ionChange)='get_purchase_obj()'>
         <ion-option *ngFor="let purchase of purchase_arr;" value="{{purchase.id}}">
           {{purchase.purchase_code}}
         </ion-option>

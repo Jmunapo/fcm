@@ -124,7 +124,7 @@ export class JsonObjectsProvider {
       'Rent',
       'Repairs and Maintanance',
       'Tax Payable',
-      'Telephon Expenses',
+      'Telephone Expenses',
       'Travel Expense',
       ]
 

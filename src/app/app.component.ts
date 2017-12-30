@@ -12,16 +12,31 @@ import { DatabaseProvider } from '../providers/database/database';
 export class MyApp {
   @ViewChild(Nav) navCtrl: Nav;
 
-  rootPage: any;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private database: DatabaseProvider ) {
+  rootPage: any = 'AddPage';
+  constructor(platform: Platform, statusBar: StatusBar,
+     splashScreen: SplashScreen, 
+     private database: DatabaseProvider) {
     platform.ready().then(() => {
-      this.database.getData('banking').then(val=>{
+      /*this.database.getData('banking').then(val=>{
         if(val){
           this.rootPage = 'HomePage';
         }else{
           this.rootPage = 'AccountsPage';
         }
-      })
+      });
+
+      platform.registerBackButtonAction(() => {
+        if (this.navCtrl.canGoBack()) {
+          this.navCtrl.pop();
+        } else {
+          let curr = this.navCtrl.getActive().name;
+          if(curr !== 'Homepage'){
+            this.rootPage = 'HomePage';
+          }else{
+            platform.exitApp();
+          }
+        }
+      });*/
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();

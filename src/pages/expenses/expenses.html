@@ -1,58 +1,48 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Expenses
-    </ion-title>
+        <ion-select [(ngModel)]="selected_expense" interface="popover" (ionChange)="selected()" style="max-width: 80%; color: #ffffff;">
+          <ion-option  *ngFor="let ex of expense_category; let i = index">{{ex}}</ion-option>
+        </ion-select>
     <ion-buttons end>
-      <button ion-button icon-only>
-        <ion-icon name="add"></ion-icon>
+      <button ion-button icon-left icon-only>
+        <ion-icon name="help"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page9">
-  <form id="expenses-form6">
-    <ion-searchbar placeholder="Search..." name="expensive" id="expenses-search1"></ion-searchbar>
-  </form>
-  <ion-card id="expenses-card22">
-    <ion-list>
-      <ion-item-sliding>
-        <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item25">
-          <ion-avatar item-left>
-            <img />
-          </ion-avatar>
-          <h2>
-            Business
-          </h2>
-        </ion-item>
-        <ion-item-options side="left">
-          <button ion-button color="positive">
-            add
-          </button>
-        </ion-item-options>
-      </ion-item-sliding>
-      <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item28">
-        <ion-avatar item-left>
-          <img />
-        </ion-avatar>
-        <h2>
-          Family
-        </h2>
-      </ion-item>
-      <ion-item color="none" on-click="goToPlaceholder()" id="expenses-list-item29">
-        <ion-avatar item-left>
-          <img />
-        </ion-avatar>
-        <h2>
-          Other
-        </h2>
-      </ion-item>
-      <div style="width:100%;height:220px;margin:0px 0px;line-height:250px;background-color:#e8ebef;text-align:center;">
-        <i class="icon ion-image" style="font-size:64px;color:#888;vertical-align:middle;"></i>
-      </div>
-    </ion-list>
+
+<ion-content padding>
+  <ion-card *ngFor="let e of expenses_instorage">
+    <ion-card-header>
+      {{e.spent_on}}
+    </ion-card-header>
+    <ion-item>
+      <h2>${{get_total(e.transaction_id)}}</h2>
+      <p>date</p>
+      <ion-note>{{e.date | date:'medium'}}</ion-note>
+    </ion-item>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button color="secondary" clear small icon-start>
+          <ion-icon name='md-create'></ion-icon>
+          Edit
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button color="danger" clear small icon-start>
+          <ion-icon name='md-create'></ion-icon>
+          Remove
+        </button>
+      </ion-col>
+    </ion-row>
+
   </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="danger" (click)="addExpense('Record Expense', 'danger', 'addExpense')">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>

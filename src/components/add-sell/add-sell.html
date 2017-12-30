@@ -1,0 +1,51 @@
+<div>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>Customer Name (optional)</ion-label>
+      <ion-input type="text" [(ngModel)]="customer"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Date</ion-label>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD, YYYY HH:mm" max="2050-10-31"  [(ngModel)]="date" (ionChange)="remove_err('dat')"></ion-datetime>
+      <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+
+    <ion-item-divider color="light">Payment Mode</ion-item-divider>
+    <ion-item *ngFor="let o of dom_accounts_array; let i = index">
+      <ion-label>{{o.name}}</ion-label>
+      <ion-checkbox [(ngModel)]="dom_accounts_index[i]" (ionChange)="payment_mode(i,o.name)"></ion-checkbox>
+    </ion-item>
+
+    <ion-item>
+      <ion-input placeholder="Paid($)" type="number" [(ngModel)]="amount" disabled="true"></ion-input>
+      <ion-icon *ngIf="amnt" name='alert' item-end color="danger"></ion-icon>
+    </ion-item>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-item *ngFor="let i of item_array; let i = index">
+          <h2>{{i.quantity}} {{i.item_name}}</h2>
+          <p>discount (- ${{i.discount}}) </p>
+          <ion-note item-end>
+            <button ion-button clear color="danger" icon-only (click)="remove_item(i)">
+              <ion-icon name="remove-circle"></ion-icon>
+            </button>
+          </ion-note>
+        </ion-item>
+      </ion-card-content>
+    
+      <ion-item no-lines>
+        <button padding ion-button color="{{color}}" block icon-right style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;"
+          on-click="add_item()">
+          Add Item
+        </button>
+      </ion-item>
+    </ion-card>
+
+    <button padding ion-button block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;" on-click="process_purchase()">
+      Save Purchase
+    </button>
+
+  </ion-list>
+</div>

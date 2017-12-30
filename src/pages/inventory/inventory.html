@@ -1,16 +1,47 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>
-      Inventory
-    </ion-title>
+    <ion-select [(ngModel)]="selected_purchase" interface="popover" (ionChange)="selected()" style="max-width: 80%; color: #ffffff;">
+      <ion-option *ngFor="let p of purchase_code;">{{p}}</ion-option>
+    </ion-select>
     <ion-buttons end>
-      <button ion-button icon-only solid>
-        <ion-icon name="settings"></ion-icon>
+      <button ion-button icon-left icon-only>
+        <ion-icon name="more"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page5"></ion-content>
+
+<ion-content>
+  <ion-card *ngFor="let p of inventory_instorage">
+    <ion-item>
+      <h1>{{p.product_name}} X {{p.quantity}}</h1>
+      <h3>Buying Price: {{check_currency(p.purchase_code)}}{{p.buying_price}}</h3>
+      <h4>Selling Price: ${{p.selling_price}} Total: ${{p.quantity * p.selling_price}}</h4>
+      <p>{{p.description}}</p>
+    </ion-item>
+  </ion-card>
+  <ion-fab right bottom>
+    <button ion-fab color="primary" (click)="add_product('Add Product', 'primary', 'addProduct')">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col col-6>
+        <button ion-button color="secondary" clear small>
+          Stock Total: ${{stock_total}}
+        </button>
+      </ion-col>
+      <ion-col col-6>
+        <button ion-button color="secondary" clear small>
+           Expected Profit: ${{stock_profit}}
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

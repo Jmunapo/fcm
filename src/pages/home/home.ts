@@ -42,7 +42,6 @@ export class HomePage {
       if (v) {
         this.expense_instorage = v;
         this.calculate_expens(v);
-
       }
     });
   }
@@ -92,6 +91,9 @@ export class HomePage {
 
   goToTools(params){
     this.navCtrl.setRoot('ToolsPage');
+  }
+  goToExpenses(){
+    this.navCtrl.setRoot('ExpensesPage');
   }
 
   addProductsAdd() {

@@ -30,89 +30,27 @@
   </ion-fab>
 </ion-content>
 
-<ion-content *ngIf="title == 'Accounts Totals'">
-  <add-accounts></add-accounts>
-</ion-content>
 
-
-<ion-content *ngIf="title == 'Add Products'">
-  <ion-list>
-    <ion-item >
-      <ion-label floating>Product Name</ion-label>
-      <ion-input type="text" [(ngModel)]="product.product_name"></ion-input>
-      <ion-note *ngIf="pname" color="danger" item-end><i>error</i></ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Buying Currency</ion-label>
-      <ion-select [(ngModel)]="product.buying_currency" interface="popover" style="max-width: 100%;">
-        <ion-option value="USD">USD</ion-option>
-        <ion-option value="ZAR">RAND</ion-option>
-        <ion-option value="ZMW">KWACHA</ion-option>
-        <ion-option value="BWP">PULA</ion-option>
-        <ion-option value="MZN">METICAL</ion-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-item >
-      <ion-label floating>Buying Price {{product.buying_currency}} <span>(each)</span></ion-label>
-      <ion-input type="number" [(ngModel)]="product.buying_price"></ion-input>
-      <ion-note *ngIf="bprice" color="danger" item-end><i>error</i></ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Selling Price <span>(each)</span> $</ion-label>
-      <ion-input type="number" [(ngModel)]="product.selling_price"></ion-input>
-      <ion-note *ngIf="sprice" color="danger" item-end><i>error</i></ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Quantity</ion-label>
-      <ion-input type="number" [(ngModel)]="product.quantity"></ion-input>
-      <ion-note *ngIf="quant" color="danger" item-end><i>error</i></ion-note>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Description (optional)</ion-label>
-      <ion-textarea [(ngModel)]="product.description"></ion-textarea>
-    </ion-item>
-    <div style="text-align: center">
-      <button ion-button outline icon-end color="primary" (click)="addProduct()" style="margin-top:5px;">
-        Save
-      </button>
-      <button *ngIf="showDone" ion-button outline icon-end color="secondary" (click)="done()" style="margin-top:5px;">
-        Done
-      </button>
-    </div>
-
-  </ion-list>
-</ion-content>
-
-<ion-content class="cards-bg" *ngIf="title == 'Add Item'" padding="">
-
+<ion-content *ngIf="title == 'Add Item'" padding="">
      <ion-list>
       <ion-item>
         <ion-label floating>Item</ion-label>
-        <ion-select [(ngModel)]="productArray.item_name" interface="alert">
-          <ion-option *ngFor="let product of HistoryArray; let i = index" value="{{product.product_name}}" >
-             {{product.product_name}} | ${{product.selling_price}}
+        <ion-select [(ngModel)]="temp_array.item_name" interface="alert">
+          <ion-option *ngFor="let item of HistoryArray; let i = index" value="{{item.product_name}}" >
+             {{item.product_name}} | ${{item.selling_price}}
           </ion-option>
         </ion-select>
       </ion-item>
       <ion-item>
         <ion-label floating>Discount</ion-label>
-        <ion-input type="number" [(ngModel)]="productArray.discount"></ion-input>
-        <ion-note *ngIf="sprice" color="danger" item-end>
-          <i>error</i>
-        </ion-note>
+        <ion-input type="number" [(ngModel)]="temp_array.discount"></ion-input>
+        <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
       </ion-item>
       
       <ion-item>
         <ion-label floating>Quantity</ion-label>
-        <ion-input type="number" [(ngModel)]="productArray.quantity"></ion-input>
-        <ion-note *ngIf="quant" color="danger" item-end>
-          <i>error</i>
-        </ion-note>
+        <ion-input type="number" [(ngModel)]="temp_array.quantity"></ion-input>
+        <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
       </ion-item>
       </ion-list>
 
@@ -121,6 +59,4 @@
           Add
         </button>
       </div>
-
-
 </ion-content>

@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { DatabaseProvider } from '../../providers/database/database';
 import { UtilsProvider } from '../../providers/utils/utils';
 import { JsonObjectsProvider } from '../../providers/json-objects/json-objects';
-import { RemoteProvider } from '../../providers/remote/remote';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 
 @Component({
@@ -42,14 +41,12 @@ export class AddProductComponent {
   constructor(private database: DatabaseProvider,
               private utils: UtilsProvider,
               private json: JsonObjectsProvider,
-              private remote: RemoteProvider,
               private navCtrl: NavController) { }
 
   ngAfterViewInit() {
     this.database.getData('purchases').then(v => {
       if (v) {
         this.purchase_arr = v;
-        console.log(v)
       }
     });
     this.database.getData('products').then(value => {
@@ -63,13 +60,14 @@ export class AddProductComponent {
     if (this.validate()){
       let sell = Number(this.selling_price);
       let buy = this.currencyConverter(this.buying_price);
-      console.log(buy);
       let product_total_pric = buy*(Number(this.quantity));
       if(buy < sell){
-        if (this.confirmPurchase(product_total_pric)){
+        let confirmed = this.confirmPurchase(product_total_pric)
+        if (confirmed){
           this.saveDataToDatabase();
         }else{
-          this.utils.simpleToster('Invalid Buying Price, Edit Purchase details if ' + this.switchCurr(this.purchase_currency)+buy+' is correct buying price', 'middle');
+          let toconcate = this.switchCurr(this.purchase_currency) + this.buying_price;
+          this.utils.simpleToster('Invalid Buying Price, Edit Purchase details if ' +toconcate+' is correct buying price', 'middle');
         }
       }else{
         this.utils.simpleToster('Enter Valid Buying And Selling Pices', 'middle');
@@ -97,9 +95,9 @@ export class AddProductComponent {
       return false;
     }
   }
-  p(){
-    console.log(this.purchase_id)
-    if (this.purchase_id == '-1'){
+  get_purchase_obj(){
+    let purch_id = Number(this.purchase_id);
+    if (purch_id === -1){
       this.reloadStorage();
         this.utils.showLoader('Wait...')
         this.navCtrl.push('AddPage', {
@@ -150,11 +148,11 @@ export class AddProductComponent {
 
   //Checking Numbers
   confirmPurchase(total: number){
-    let element = this.purchase_arr;
     let id = Number(this.purchase_id);
+    let element = this.purchase_arr;
     for (let i = 0; i < element.length; i++) {
       if (element[i].id === id) {
-        let _total = this.currencyConverter(element[i].amount_in_base);
+        let _total = element[i].amount_in_base;
         let confirmed = element[i].confirm_purchase;
         let con_total = confirmed+total;
         let con_diff = _total - con_total;
@@ -210,7 +208,6 @@ export class AddProductComponent {
       this.database.getData('purchases').then(v => {
         if (v) {
           this.purchase_arr = v;
-          console.log(v)
         }
       });
       this.database.getData('products').then(value => {
@@ -221,93 +218,7 @@ export class AddProductComponent {
         }
       });
     }
-  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-
-  addProduct() {
-    if (this.product.buying_price == null) { this.bprice = true; } else { this.bprice = false; }
-    if (this.product.product_name == "") { this.pname = true; } else { this.pname = false; }
-    if (this.product.quantity == null || this.product.quantity == 0) { this.quant = true; } else { this.quant = false; }
-    if (this.product.selling_price == null) { this.sprice = true; } else { this.sprice = false; }
-
-    if (!this.sprice && !this.bprice && !this.quant && !this.pname) {
-      if (Number(this.product.selling_price) <= Number(this.product.buying_price)) {
-        this.utils.simpleToster('Please enter Valid prices','top')
-      } else {
-        this.validateAndStore();
-      }
-    }
-  }
-
-  validateAndStore() {
-    let loop_num = 0;
-    let new_producy_name = this.product.product_name;
-    let array_size = this.productArray.length;
-    if (this.productArray.length >= 1) {
-      this.productArray.forEach(element => {
-        if (element.product_name == new_producy_name) {
-          this.utils.simpleToster('Product Already Exists, Use Edit in (Stock)','top');
-        } else {
-          loop_num++;
-        }
-        if (loop_num == array_size) {
-          //Doesn't Exist
-          this.productArray.push(this.product);
-          console.log(this.productArray);
-          this.keep();
-          let arrLen = this.productArray.length;
-          let mssge = 'Product ' + arrLen + ' added';
-          this.simpleToster(mssge);
-          if (arrLen >= 3) {
-            this.showDone = true;
-          }
-        }
-      });
-    } else {
-      //New Product
-      this.productArray.push(this.product);
-      console.log(this.productArray);
-      this.keep();
-      let arrLen = this.productArray.length;
-      let mssge = 'Product ' + arrLen + ' added';
-      this.simpleToster(mssge);
-      if (arrLen >= 3) {
-        this.showDone = true;
-      }
-    }
-  }*/
   switchCurr(curr){
     if(curr == 'USD'){
       return '$';

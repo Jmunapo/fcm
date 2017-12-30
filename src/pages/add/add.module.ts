@@ -4,6 +4,7 @@ import { AddPage } from './add';
 import { AddExpenseComponent } from '../../components/add-expense/add-expense';
 import { AddProductComponent } from '../../components/add-product/add-product';
 import { AddPurchaseComponent } from '../../components/add-purchase/add-purchase';
+import { AddSellComponent } from '../../components/add-sell/add-sell';
 
 @NgModule({
   declarations: [
@@ -11,6 +12,7 @@ import { AddPurchaseComponent } from '../../components/add-purchase/add-purchase
     AddProductComponent,
     AddExpenseComponent,
     AddPurchaseComponent,
+    AddSellComponent,
   ],
   imports: [
     IonicPageModule.forChild(AddPage),

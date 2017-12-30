@@ -2,42 +2,31 @@
   <ion-list>
     <ion-item>
       <ion-label floating>Date</ion-label>
-      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2050-10-31" [(ngModel)]="date" (ionChange)="remove_err('dat')"></ion-datetime>
+      <ion-datetime displayFormat="MMM DD, YYYY HH:mm" pickerFormat="MMM DD, YYYY HH:mm" max="2050-10-31" [(ngModel)]="date" (ionChange)="remove_err('dat')"></ion-datetime>
       <ion-icon *ngIf="dat" name='alert' item-end color="danger"></ion-icon>
     </ion-item>
-
     <ion-item>
       <ion-label floating>Spent On</ion-label>
       <ion-select [(ngModel)]="spent_on" interface="popover" style="max-width: 100%;">
         <ion-option  *ngFor="let c of expense_category; let i = index">{{c}}</ion-option>
       </ion-select>
     </ion-item>
-
-    
-
     <ion-item-divider color="light">Credit From</ion-item-divider>
     <ion-item *ngFor="let o of dom_accounts_array; let i = index">
       <ion-label>{{o.name}}</ion-label>
       <ion-note item-end>Bal: ${{o.total}}</ion-note>
       <ion-checkbox [(ngModel)]="dom_accounts_index[i]" (ionChange)="credited_account(i,o.name)"></ion-checkbox>
     </ion-item>
-
-
     <ion-item>
       <ion-input placeholder="Amount" type="number" [(ngModel)]="amount" disabled="true"></ion-input>
       <ion-icon *ngIf="amnt" name='alert' item-end color="danger"></ion-icon>
     </ion-item>
-
-
     <ion-item>
       <ion-label floating>Description (optional)</ion-label>
       <ion-textarea [(ngModel)]="description"></ion-textarea>
     </ion-item>
-
-
     <button color="danger" padding ion-button block style="font-weight:300;color:#ffffff; border-radius:0px 0px 0px 0px;" on-click="save_expense()">
       Save Expense
     </button>
-
   </ion-list>
 </div>

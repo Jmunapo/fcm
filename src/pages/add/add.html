@@ -60,6 +60,12 @@
       </ion-item>
   </ion-list>
   </div>
+
+   <!--Add Sell View-->
+  <div *ngIf="!addSell">
+    <add-sell [sell]="temp_arry"></add-sell>
+  </div>
+
   <!-- Add expense View -->
   <div *ngIf="addExpense">
     <add-expense [expense]="temp_arry" ></add-expense>

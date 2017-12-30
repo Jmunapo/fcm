@@ -9,13 +9,7 @@ import { IonicPage, NavController, NavParams, ViewController, ToastController } 
 export class ModalsPage {
   title : string;
   HistoryArray: Array<string> = [];
-  cash: number;
-  ecocash: number;
-  checked: number = 0;
-  product: any;
-  tempproduct: any;
-  productArray: Array<any> = [];
-
+  temp_array: any;
   bprice: boolean = false;
   sprice: boolean = false;
   quant: boolean = false;
@@ -35,49 +29,37 @@ export class ModalsPage {
   ionViewWillLoad() {
    this.title =  this.navParams.get('title');
     if (this.navParams.get('data')) { this.HistoryArray = this.worked(this.navParams.get('data')); }
-    if (this.navParams.get('info')) {
-      this.pushAccounts(this.navParams.get('info'));
-    }
 
-    if (this.navParams.get('product')) {
-      this.product = this.navParams.get('product');
-      this.keep();
-    }
-    if (this.navParams.get('instorage')) {
-      let instorage = this.navParams.get('instorage');
-      this.productArray = instorage;
-      console.log(this.productArray)
-      this.showDone = true;
-    }
 
     if (this.navParams.get('item_obj')) {
       let item_obj = this.navParams.get('item_obj');
       let fromstorage = this.navParams.get('fromstorage');
-      this.productArray = item_obj;
+      this.temp_array = item_obj;
       this.HistoryArray = fromstorage;
       console.log(this.HistoryArray)
+      console.log(this.temp_array)
     }
   }
-  keep(){
-    if(this.tempproduct == undefined){
+ /* keep(){
+    if(this.temp_product == undefined){
       this.tempproduct = JSON.parse(JSON.stringify(this.product));
       console.log(this.tempproduct);
     }else {
       this.product = JSON.parse(JSON.stringify(this.tempproduct));
     }
     
-  }
+  }*/
 
   pushAccounts(array){
-    if (array.indexOf("c") != -1) { this.checked++; this.c = true; }
-    if (array.indexOf("e") != -1) { this.checked++; this.e = true; }
+    //if (array.indexOf("c") != -1) { this.checked++; this.c = true; }
+    //if (array.indexOf("e") != -1) { this.checked++; this.e = true; }
   }
   closeModal(data){
     this.viewCtrl.dismiss(data);
   }
 
   addProduct(){
-    if (this.product.buying_price == null) { this.bprice = true; } else { this.bprice = false; }
+   /* if (this.product.buying_price == null) { this.bprice = true; } else { this.bprice = false; }
     if (this.product.product_name == "") { this.pname = true; } else { this.pname = false; }
     if (this.product.quantity == null || this.product.quantity == 0) { this.quant = true; } else { this.quant = false; } 
     if (this.product.selling_price == null) { this.sprice = true; } else { this.sprice = false; }
@@ -88,10 +70,10 @@ export class ModalsPage {
       }else{
         this.validateAndStore();
         }
-    }
+    }*/
   }
 
-  addItem(){
+ /* addItem(){
     this.viewCtrl.dismiss(this.productArray); 
   }
 
@@ -177,6 +159,6 @@ validateAndStore(){
       newData.push(newObj);
     });
     return newData.reverse();
-  }
+  }*/
 
 }
