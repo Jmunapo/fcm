@@ -150,7 +150,7 @@ validateAndStore(){
       this.viewCtrl.dismiss(userAcc);
     }
   }
-
+*/
   worked(data: Array<any>){
     let newData: Array<any> = [];
     data.forEach(element => {
@@ -159,6 +159,6 @@ validateAndStore(){
       newData.push(newObj);
     });
     return newData.reverse();
-  }*/
+  }
 
 }

@@ -153,7 +153,7 @@ export class AddPage {
               this.simpleToster('Sell Saved');
               this.navCtrl.pop();
             } else {
-              this.simpleToster('Sorry there was an error, Restartb your app');
+              this.simpleToster('Sorry there was an error, Please Restart your app');
             }
           });
         }else{
